@@ -6,6 +6,8 @@
 
 package main;
 
+import java.awt.Image;
+import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,9 +17,10 @@ import javax.swing.ImageIcon;
 public class Base {
     private int posX;           //posicion en eje X
     private int posY;           //posicion en eje y
-    private ImageIcon imgObj;   //imagen del objeto
+    private Animacion animacion; 
+    private Image imgObj;   //imagen del objeto
     
-    public Base(int x, int y, ImageIcon img) {
+    public Base(int x, int y, Image img) {
         posX = x;
         posY = y;
         imgObj = img;
@@ -31,7 +34,7 @@ public class Base {
         return posY;
     }
     
-    public ImageIcon getImg() {
+    public Image getImg() {
         return imgObj;
     }
     
@@ -43,8 +46,10 @@ public class Base {
         posY = y;
     }
     
-    public void setImg(ImageIcon img) {
+    public void setImg(Image img) {
         imgObj = img;
     }
+
+
     
 }

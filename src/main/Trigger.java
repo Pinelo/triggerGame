@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 
 /**
@@ -28,10 +29,15 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     private Animacion aniMovI;  
     private Animacion aniMovD;
     private Animacion aniMovA;  
+    private Character charPersonaje;
     private long tiempoActual;
+    private int iDireccion;
+    private boolean bMovimiento;
     
     public void init(){
         this.setSize(800,600);
+        bMovimiento = false;
+        
         
         // Movimiento del personaje principal hacia el frete
         Image imaMovF1 = Toolkit.getDefaultToolkit().getImage(this.getClass()
@@ -61,6 +67,9 @@ public class Trigger extends JFrame implements Runnable, KeyListener
                 .getResource("Personaje Camina izq2.png"));
         Image imaMovI3 = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Personaje Camina izq3.png"));   
+        
+        LinkedList invent = new LinkedList();
+    
          // Animación de movimiento para enfrente
         aniMovF = new Animacion();
         aniMovF.sumaCuadro(imaMovF1, 100);
@@ -80,7 +89,14 @@ public class Trigger extends JFrame implements Runnable, KeyListener
         aniMovD = new Animacion();
         aniMovD.sumaCuadro(imaMovD1, 100);
         aniMovD.sumaCuadro(imaMovD2, 100);
-        aniMovD.sumaCuadro(imaMovD3, 100);   
+        aniMovD.sumaCuadro(imaMovD3, 100);  
+        
+        charPersonaje = new Character(100, 100, imaMovI3, aniMovF , 0, 100, 100, 5, 1,
+                true, invent, true );
+        charPersonaje.setX(getWidth() / 2);
+        charPersonaje.setY(getHeight() / 2);
+       
+        addKeyListener(this);
         
     }
     
@@ -124,12 +140,33 @@ public class Trigger extends JFrame implements Runnable, KeyListener
         // Tiempo transcurrido desde que inicio el juego
         long tiempoTranscurrido=System.currentTimeMillis() - tiempoActual;
         //Guarda el tiempo actual
-        tiempoActual += tiempoTranscurrido;
-        //Actualiza la animación de camion y pel en base al tiempo transcurrido
-        aniMovF.actualiza(tiempoTranscurrido);
-        aniMovA.actualiza(tiempoTranscurrido);
-        aniMovD.actualiza(tiempoTranscurrido);
-        aniMovI.actualiza(tiempoTranscurrido);
+        if (bMovimiento){
+            tiempoActual += tiempoTranscurrido;
+            //Actualiza la animación de camion y pel en base al tiempo transcurrido
+            aniMovF.actualiza(tiempoTranscurrido);
+            aniMovA.actualiza(tiempoTranscurrido);
+            aniMovD.actualiza(tiempoTranscurrido);
+            aniMovI.actualiza(tiempoTranscurrido);
+        }
+        
+        switch (iDireccion){
+            case 1:{
+                charPersonaje.setAnimacion(aniMovI);
+                break;
+            }
+            case 2:{
+                charPersonaje.setAnimacion(aniMovD);
+                break;
+            }
+            case 3:{
+                charPersonaje.setAnimacion(aniMovA);
+                break;
+            }
+            case 4:{
+                charPersonaje.setAnimacion(aniMovF);
+                break;
+            }
+        }  
     }
     
     public void checaColision(){
@@ -180,19 +217,38 @@ public class Trigger extends JFrame implements Runnable, KeyListener
      * 
      */
     public void paint1(Graphics g) {
-    
+          g.drawImage(charPersonaje.getAnimacion().getImagen()
+                  , charPersonaje.getX() , charPersonaje.getY(), this);
     }
 
     @Override
-    public void keyTyped(KeyEvent ke) {
+    public void keyTyped(KeyEvent e) {
+       
     }
 
     @Override
-    public void keyPressed(KeyEvent ke) {
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_A){
+            bMovimiento = true;
+            iDireccion = 1;
+        } 
+        else if (e.getKeyCode() == KeyEvent.VK_D){
+            bMovimiento = true;
+            iDireccion = 2;
+        } 
+        else if (e.getKeyCode() == KeyEvent.VK_W){
+            bMovimiento = true;
+            iDireccion = 3;
+        } 
+        else if (e.getKeyCode() == KeyEvent.VK_S){ 
+            bMovimiento = true;
+            iDireccion = 4;
+        } 
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
+        bMovimiento = false;
     }
 
     @Override

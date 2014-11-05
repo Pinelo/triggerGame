@@ -6,6 +6,7 @@
 
 package main;
 
+import java.awt.Image;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
@@ -23,12 +24,14 @@ public class Character extends Base{
     public Boolean isPlayable;
     public LinkedList inventory;
     public Boolean isAlive;
+    public Animacion aniAnimacion;
         
-    public Character(int x, int y, ImageIcon img, int id, int maxhp, int hp, 
+    public Character(int x, int y, Image img, Animacion ani ,int id, int maxhp, int hp, 
             int speed, int dir, Boolean isplayable, LinkedList invent, 
             Boolean isalive) {
         super(x, y, img);
         ID = id;
+        aniAnimacion = ani;
         maxHp = maxhp;
         this.hp = hp;
         this.speed = speed;
@@ -38,6 +41,7 @@ public class Character extends Base{
         isAlive = isalive;
    
     }
+    
     
     public int getId() {
         return ID;
@@ -101,6 +105,14 @@ public class Character extends Base{
     
     public void setIsAlive(Boolean isalive) {
         isAlive = isalive;
+    }
+    
+    public void setAnimacion(Animacion ani) {
+        aniAnimacion = ani;
+    }
+    
+    public Animacion getAnimacion() {
+        return aniAnimacion;
     }
     
  }
