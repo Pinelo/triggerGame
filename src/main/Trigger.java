@@ -35,8 +35,11 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     private boolean bMovimiento;
     
     public void init(){
-        this.setSize(800,600);
+
         bMovimiento = false;
+        this.setSize(1000,1000);
+        LinkedList map = new LinkedList();     //el mapa se hace aqui
+
         
         
         // Movimiento del personaje principal hacia el frete
