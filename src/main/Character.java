@@ -6,6 +6,7 @@
 
 package main;
 
+import java.awt.Image;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
@@ -24,7 +25,7 @@ public class Character extends Base{
     public LinkedList inventory;
     public Boolean isAlive;
         
-    public Character(int x, int y, ImageIcon img, int id, int maxhp, int hp, 
+    public Character(int x, int y, Image img, int id, int maxhp, int hp, 
             int speed, int dir, Boolean isplayable, LinkedList invent, 
             Boolean isalive) {
         super(x, y, img);

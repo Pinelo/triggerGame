@@ -6,6 +6,7 @@
 
 package main;
 
+import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
@@ -17,7 +18,8 @@ public class Terrain extends Base{
     public String type;     //typo del terreno
     public Boolean isWalkable; //se puede caminar sobre el terreno o no
     
-    public Terrain(int posX, int posY, ImageIcon img, String type, Boolean walkable) {
+    
+    public Terrain(int posX, int posY, Image img, String type, Boolean walkable) {
         super(posX, posY, img);
         this.type = type;
         isWalkable = walkable;
