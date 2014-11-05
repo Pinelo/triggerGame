@@ -3,3 +3,5 @@ menu{
 }
 
 class Option
+deleted class Option
+---------------------------
