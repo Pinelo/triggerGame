@@ -171,23 +171,48 @@ public class Trigger extends JFrame implements Runnable, KeyListener
             aniMovA.actualiza(tiempoTranscurrido);
             aniMovD.actualiza(tiempoTranscurrido);
             aniMovI.actualiza(tiempoTranscurrido);
+            
         }
         
         switch (charPersonaje.getDir()){
             case 1:{
                 charPersonaje.setAnimacion(aniMovI);
+                if(bMovimiento) {
+                    for (Object tile : map) {
+                    Terrain bloque = (Terrain)tile;
+                    bloque.setX(bloque.getX() + charPersonaje.getSpeed());
+                    }
+                }
                 break;
             }
             case 2:{
                 charPersonaje.setAnimacion(aniMovD);
+                if(bMovimiento) {
+                    for (Object tile : map) {
+                    Terrain bloque = (Terrain)tile;
+                    bloque.setX(bloque.getX() - charPersonaje.getSpeed());
+                    }
+                }
                 break;
             }
             case 3:{
                 charPersonaje.setAnimacion(aniMovA);
+                if(bMovimiento) {
+                    for (Object tile : map) {
+                    Terrain bloque = (Terrain)tile;
+                    bloque.setY(bloque.getY() + charPersonaje.getSpeed());
+                    }
+                }
                 break;
             }
             case 4:{
                 charPersonaje.setAnimacion(aniMovF);
+                if(bMovimiento) {
+                    for (Object tile : map) {
+                    Terrain bloque = (Terrain)tile;
+                    bloque.setY(bloque.getY() - charPersonaje.getSpeed());
+                    }
+                }
                 break;
             }
         }  
