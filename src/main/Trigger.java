@@ -24,17 +24,40 @@ public class Trigger extends JFrame implements Runnable, KeyListener
         , MouseListener {
     
     private Graphics graGraficaApplet;  // Objeto grafico de la Imagen
-    private Image    imaImagenApplet;   // Imagen a proyectar en Applet
     private Animacion aniMovF;          // Movimiento del personaje principal F
     private Animacion aniMovI;  
     private Animacion aniMovD;
     private Animacion aniMovA;  
     private long tiempoActual;
+    private Image imaImagenApplet;   // Imagen a proyectar en Applet	
+    private int cantTiles;              //variable temportal, destruir
+    LinkedList map;                     //mapa del juego
     
     public void init(){
         this.setSize(1000,1000);
         
-        LinkedList map = new LinkedList();     //el mapa se hace aqui
+        map = new LinkedList();     //el mapa se hace aqui
+        
+        cantTiles = 100;
+        int posX = 22;
+        int posY = 22;
+        int contadorX = 0;
+        int contadorY = 0;
+        while(cantTiles > 0) {
+            cantTiles--;
+            Image tileImg = Toolkit.getDefaultToolkit().getImage(this.getClass()
+                .getResource("Tile Piedra a Zacate Centro.png"));
+            Terrain tile = new Terrain(posX*contadorX*6, posY*contadorY*6, tileImg, "Piedra", true);
+            if(contadorX == 10) {
+                contadorX = 0;
+                contadorY++;
+            }
+            else{
+            contadorX++;
+            }        
+            map.add(tile);
+            
+        }
         
         
         // Movimiento del personaje principal hacia el frete
@@ -184,7 +207,24 @@ public class Trigger extends JFrame implements Runnable, KeyListener
      * 
      */
     public void paint1(Graphics g) {
-    
+        
+                //contadores para hacer el mapa
+        if(map != null){
+                  for (Object tile : map) {
+                    Terrain bloque = (Terrain)tile;
+                    g.drawImage(bloque.getImg(), bloque.getX(),
+                            bloque.getY(), this);
+                }
+        }
+        else if(map == null) {
+            g.drawString("NULL", 100, 100);
+        }
+                  
+//                for (Object encBloque : encBloques) {
+//                    Entidad bloque = (Entidad)encBloque;
+//                    g.drawImage(bloque.getImagen(), bloque.getX(),
+//                            bloque.getY(), this);
+//                }
     }
 
     @Override
