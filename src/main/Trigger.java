@@ -32,7 +32,7 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     public void init(){
         this.setSize(1000,1000);
         
-        LinkedList map = new LinkedList();     //el mapa se hace aqui
+        map = new LinkedList();     //el mapa se hace aqui
         
         cantTiles = 100;
         int posX = 22;
@@ -40,9 +40,10 @@ public class Trigger extends JFrame implements Runnable, KeyListener
         int contadorX = 1;
         int contadorY = 1;
         while(cantTiles > 0) {
+            cantTiles--;
             Image tileImg = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Tile Piedra a Zacate Centro.png"));
-            Terrain tile = new Terrain(posX*contadorX, posY*contadorY, tileImg, "Piedra", true);
+            Terrain tile = new Terrain(posX*contadorX*3, posY*contadorY*3, tileImg, "Piedra", true);
             if(contadorX == 10) {
                 contadorX = 0;
                 contadorY++;
@@ -173,11 +174,16 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     public void paint1(Graphics g) {
         
                 //contadores para hacer el mapa
-//                  for (Object tile : map) {
-//                    Terrain bloque = (Terrain)tile;
-//                    g.drawImage(bloque.getImg(), bloque.getX(),
-//                            bloque.getY(), this);
-//                }
+        if(map != null){
+                  for (Object tile : map) {
+                    Terrain bloque = (Terrain)tile;
+                    g.drawImage(bloque.getImg(), bloque.getX(),
+                            bloque.getY(), this);
+                }
+        }
+        else if(map == null) {
+            g.drawString("NULL", 100, 100);
+        }
                   
 //                for (Object encBloque : encBloques) {
 //                    Entidad bloque = (Entidad)encBloque;
