@@ -30,7 +30,6 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     private Animacion aniMovA;  
     private Character charPersonaje;
     private long tiempoActual;
-    private int iDireccion;
     private boolean bMovimiento;
     private Image imaImagenApplet;   // Imagen a proyectar en Applet	
     private int cantTiles;              //variable temportal, destruir
@@ -174,7 +173,7 @@ public class Trigger extends JFrame implements Runnable, KeyListener
             aniMovI.actualiza(tiempoTranscurrido);
         }
         
-        switch (iDireccion){
+        switch (charPersonaje.getDir()){
             case 1:{
                 charPersonaje.setAnimacion(aniMovI);
                 break;
@@ -273,19 +272,19 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_A){
             bMovimiento = true;
-            iDireccion = 1;
+            charPersonaje.setDir(1);
         } 
         else if (e.getKeyCode() == KeyEvent.VK_D){
             bMovimiento = true;
-            iDireccion = 2;
+            charPersonaje.setDir(2);
         } 
         else if (e.getKeyCode() == KeyEvent.VK_W){
             bMovimiento = true;
-            iDireccion = 3;
+            charPersonaje.setDir(3);
         } 
         else if (e.getKeyCode() == KeyEvent.VK_S){ 
             bMovimiento = true;
-            iDireccion = 4;
+            charPersonaje.setDir(4);
         } 
     }
 
