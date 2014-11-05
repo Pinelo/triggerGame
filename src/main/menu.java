@@ -17,6 +17,10 @@ public class menu {
     //no esta documentado selectedOption
     public int selectedOption;
     
+    public menu(LinkedList optionList) {
+        
+    }
+    
     public void selectOption() {
     //falta
     }
