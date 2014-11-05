@@ -37,13 +37,13 @@ public class Trigger extends JFrame implements Runnable, KeyListener
         cantTiles = 100;
         int posX = 22;
         int posY = 22;
-        int contadorX = 1;
-        int contadorY = 1;
+        int contadorX = 0;
+        int contadorY = 0;
         while(cantTiles > 0) {
             cantTiles--;
             Image tileImg = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Tile Piedra a Zacate Centro.png"));
-            Terrain tile = new Terrain(posX*contadorX*3, posY*contadorY*3, tileImg, "Piedra", true);
+            Terrain tile = new Terrain(posX*contadorX*6, posY*contadorY*6, tileImg, "Piedra", true);
             if(contadorX == 10) {
                 contadorX = 0;
                 contadorY++;
