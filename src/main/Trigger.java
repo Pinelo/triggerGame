@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.LinkedList;
 import javax.swing.JFrame;
 
 /**
@@ -27,7 +28,10 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     
     public void init(){
-        this.setSize(800,600);
+        this.setSize(1000,1000);
+        
+        LinkedList map = new LinkedList();     //el mapa se hace aqui
+        
         
         // Movimiento del personaje principal hacia el frete
         Image imaMovF1 = Toolkit.getDefaultToolkit().getImage(this.getClass()
