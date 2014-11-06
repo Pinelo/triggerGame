@@ -36,6 +36,8 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     private long tiempoActual;
     private boolean bMovimiento;
     private boolean bAtaque;
+    private boolean bMenu;          //el menu se despliege si el boolean es true
+    private boolean bLab;           //este boolean indica si estas en el labo
     private Image imaImagenApplet;   // Imagen a proyectar en Applet	
     private int cantTiles;              //variable temportal, destruir
     private int iContAni;
@@ -47,6 +49,7 @@ public class Trigger extends JFrame implements Runnable, KeyListener
         bAtaque = false;
         this.setSize(1000,1000);
         iContAni = 0;
+        bMenu = false;      //por defecto el menu no se despliega
     
         map = new LinkedList();     //el mapa se hace aqui
         
@@ -204,7 +207,8 @@ public class Trigger extends JFrame implements Runnable, KeyListener
                se checa si hubo colisiones para desaparecer jugadores o corregir
                movimientos y se vuelve a pintar todo
             */ 
-            actualiza();
+            if(!bMenu) {
+            actualiza();}
             checaColision();
             repaint();
             try	{
@@ -336,9 +340,24 @@ public class Trigger extends JFrame implements Runnable, KeyListener
                     this.getSize().height);
                 graGraficaApplet = imaImagenApplet.getGraphics();
         }
+        Image imaBack;
+        
+        //el fondo que se escoge depende del estado de la variable bMenu y bLab
+        if(!bMenu && !bLab) {
         URL urlImageBack = this.getClass().getResource("we.png");
-            Image imaBack = Toolkit.getDefaultToolkit().
+            imaBack = Toolkit.getDefaultToolkit().
                 getImage(urlImageBack);
+        }
+        else if(bLab && !bMenu) {
+            URL urlImageBack = this.getClass().getResource("lab.jpg");
+            imaBack = Toolkit.getDefaultToolkit().
+                getImage(urlImageBack);
+        }
+        else {
+        URL urlImageBack = this.getClass().getResource("menu.jpg");
+            imaBack = Toolkit.getDefaultToolkit().
+                getImage(urlImageBack);
+        }
         
         // Desplegar imagen de fondo
         graGraficaApplet.drawImage(imaBack, 0, 0, 
@@ -363,9 +382,9 @@ public class Trigger extends JFrame implements Runnable, KeyListener
      * 
      */
     public void paint1(Graphics g) {
- 
         //contadores para hacer el mapa
-        if(map != null){
+        if(!bMenu){
+        if(map != null && !bLab){
             for (Object tile : map) {
                 Terrain bloque = (Terrain)tile;
                 g.drawImage(bloque.getImg(), bloque.getX(),
@@ -378,6 +397,7 @@ public class Trigger extends JFrame implements Runnable, KeyListener
         // Se dibuja el personaje principal
         g.drawImage(charPersonaje.getAnimacion().getImagen()
                 , charPersonaje.getX() , charPersonaje.getY(), this);
+        }
                   
 //                for (Object encBloque : encBloques) {
 //                    Entidad bloque = (Entidad)encBloque;
@@ -414,6 +434,23 @@ public class Trigger extends JFrame implements Runnable, KeyListener
             if (bMovimiento == false)
                 bAtaque = true;
         } 
+        else if (e.getKeyCode() == KeyEvent.VK_M) {
+            bMenu = !bMenu;
+            System.out.print("bMenu: ");
+        System.out.print(bMenu);
+        System.out.print("bLabL: ");
+        System.out.print(bLab);
+        }
+        else if (e.getKeyCode() == KeyEvent.VK_L) {
+            if(bMenu) { //el laboratorio solo se puede prender desde el menu
+                bLab = !bLab;
+                bMenu = !bMenu; //al entrar al laboratorio te sales del menu
+                System.out.print("bMenu: ");
+        System.out.print(bMenu);
+        System.out.print("bLabL: ");
+        System.out.print(bLab);
+            }
+        }
     }
 
     @Override
