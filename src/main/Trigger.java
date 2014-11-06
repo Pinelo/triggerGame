@@ -42,7 +42,7 @@ public class Trigger extends JFrame implements Runnable, KeyListener
     
         map = new LinkedList();     //el mapa se hace aqui
         
-        cantTiles = 100;
+        cantTiles = 1000;
         int posX = 22;
         int posY = 22;
         int contadorX = 0;
@@ -51,8 +51,8 @@ public class Trigger extends JFrame implements Runnable, KeyListener
             cantTiles--;
             Image tileImg = Toolkit.getDefaultToolkit().getImage(this.getClass()
                 .getResource("Tile Piedra a Zacate Centro.png"));
-            Terrain tile = new Terrain(posX*contadorX*6, posY*contadorY*6, tileImg, "Piedra", true);
-            if(contadorX == 10) {
+            Terrain tile = new Terrain(posX*contadorX*5, posY*contadorY*5, tileImg, "Piedra", true);
+            if(contadorX == 50) {
                 contadorX = 0;
                 contadorY++;
             }
